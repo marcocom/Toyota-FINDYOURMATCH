@@ -1,0 +1,64 @@
+package com.digitalarbor.toyota.model 
+{
+	import flash.events.Event;
+	import flash.xml.XMLNode;
+	
+	// interface
+	import com.digitalarbor.toyota.model.Map_mo;
+	import com.digitalarbor.toyota.event.ClassDispatcher
+	import com.digitalarbor.toyota.event.EventDelay_cn;
+	import com.digitalarbor.toyota.utilities.FlashCookie;
+
+	
+	public class Model 
+	{
+		private var $dispatcher:ClassDispatcher;
+		public var $user_center_info:UserCenterInfo_mo;
+		public var $map_mo:Map_mo;
+		public var $share_mo:Share_mo;
+		public var $cars_mo:Cars_mo;
+		public var $mouse_mo:Mouse_mo;
+		
+		public var $flashCookie:FlashCookie;
+		/////////////
+		// 	singleton
+		private static var instance:Model = null;
+		public static function getInstance ():Model
+		{
+			if (instance == null) {
+				instance = new Model();
+			}
+			return instance;
+		}
+		//
+		public function Model () { init (); }
+		private function init ():void
+		{
+			$dispatcher = ClassDispatcher.getInstance ();
+			
+			// map model info
+			$map_mo = new Map_mo ();
+			
+			// user center info
+			$user_center_info = new UserCenterInfo_mo ();
+
+			// user share event
+			$share_mo = new Share_mo ();
+			
+			// carrousel
+			$cars_mo = new Cars_mo ();
+			
+			// Custom Mouse
+			$mouse_mo = new Mouse_mo ();
+			
+			// shareObject
+			// Flash Share Object ( cookie )
+			$flashCookie = new FlashCookie ();
+			
+			// model ready
+			var modelLoadedDelay:EventDelay_cn = new EventDelay_cn (400, function ():void { 
+				$dispatcher.dispatchEvent (new Event(ClassDispatcher.MODEL_LOADED));
+				} );	
+		}
+	}
+}

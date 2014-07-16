@@ -1,0 +1,56 @@
+package com.digitalarbor.toyota.view.starthere_vo 
+{
+	//tweenlite
+	import com.greensock.*;
+	import com.greensock.easing.*;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	
+	// assets
+	import com.digitalarbor.toyota.event.ClassDispatcher;
+	import com.digitalarbor.toyota.library_assets.startHere_mc;
+
+	public class StartHere extends startHere_mc 
+	{
+		private var _$dispatcher:ClassDispatcher;
+		
+		public function StartHere() 
+		{		
+			//propertys
+			this.x = 510;
+			this.y = 270;
+			this.alpha = 0;
+			this.scaleY = this.scaleX = 1;
+
+			// events
+			_$dispatcher = ClassDispatcher.getInstance ();
+			_$dispatcher.addEventListener (ClassDispatcher.SHOW_STARTHERE, _alphaOn);
+			_$dispatcher.addEventListener (ClassDispatcher.HIDE_STARTHERE, _alphaOff);
+			_$dispatcher.addEventListener (ClassDispatcher.ADJUST_STARTHERE, _adjust_position);
+			
+			// mouse events
+			//this.buttonMode = true;
+			//this.addEventListener(MouseEvent.CLICK, animation_continue)
+		}
+		
+		private function animation_continue(e:MouseEvent):void 
+		{
+			this.buttonMode = false;
+			this.removeEventListener(MouseEvent.CLICK, animation_continue);
+			
+			_$dispatcher.dispatchEvent(new Event(ClassDispatcher.ANIMATION_CONTINUE));
+		}
+		private function _alphaOn (e:Event):void
+		{
+			TweenLite.to (this, 1, { alpha:1} );
+		}
+		private function _alphaOff (e:Event):void
+		{
+			TweenLite.to (this, 1, { alpha:0, onComplete:function ():void { this.visible = false; _$dispatcher = null; }} );
+		}
+		private function _adjust_position (e:Event):void
+		{
+			TweenLite.to (this, 1, { delay:.5 ,y:"-30", scaleY:1, scaleX:1 } );
+		}
+	}
+}

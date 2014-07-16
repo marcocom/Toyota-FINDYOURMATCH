@@ -1,0 +1,104 @@
+package com.digitalarbor.toyota.model 
+{
+	import com.digitalarbor.toyota.utilities.SWFInfo;
+	import com.digitalarbor.toyota.view.cid_vo.Cid_form;
+	
+	public class UserCenterInfo_mo
+	{
+		private var $swf_info:SWFInfo;
+		private var $user_form:Cid_form;
+		private var $user_cid:String;
+		private var $user_mid:String;
+		private var $user_surveyid:String;
+		private var $user_survey:String;
+		private var $user_aid:String;
+
+		public function UserCenterInfo_mo()
+		{
+			$swf_info = SWFInfo.getInstance ();
+			
+			// register user cid
+			$user_cid = ($swf_info.flashvars["cid"] != undefined && $swf_info.flashvars["cid"].toString().length > 0)?$swf_info.flashvars["cid"]:null;
+			trace("$user_cid ", $user_cid);
+			
+			// register user mid
+			$user_mid = ($swf_info.flashvars["mid"] != undefined && $swf_info.flashvars["mid"].toString().length > 0)?$swf_info.flashvars["mid"]:null;
+			trace("$user_mid ", $user_mid);
+			
+			// 
+			$user_survey = ($swf_info.flashvars["survey"] != undefined && $swf_info.flashvars["survey"].toString().length > 0)?$swf_info.flashvars["survey"]:null;
+			trace("$user_survey ", $user_survey);
+		}
+		
+		// CID
+		public function get user_cid():String 
+		{
+			return $user_cid;
+		}
+		
+		public function set user_cid(value:String):void 
+		{
+			trace("register $user_cid", value)
+			$user_cid = value;
+		}
+		
+		// MID
+		public function get user_mid():String 
+		{
+			return $user_mid;
+		}
+		
+		public function set user_mid(value:String):void 
+		{
+			trace("register $user_mid", value)
+			$user_mid = value;
+		}
+		
+		// SURVEY ID
+		public function get user_surveyid():String 
+		{
+			return $user_surveyid;
+		}
+		
+		public function set user_surveyid(value:String):void 
+		{
+			trace("register $user_surveyid", value)
+			$user_surveyid = value;
+		}
+		
+		// SURVEY 
+		public function get user_survey():String 
+		{
+			return $user_survey;
+		}
+		
+		public function set user_survey(value:String):void 
+		{
+			trace("register $user_survey", value)
+			$user_survey = value;
+		}
+		
+		// ACTIVITY
+		public function get user_aid():String 
+		{
+			return $user_aid;
+		}
+		
+		public function set user_aid(value:String):void 
+		{
+			trace("register $user_aid", value)
+			$user_aid = value;
+		}
+		
+		// FORM
+ 		public function get user_form():Cid_form 
+		{
+			return $user_form;
+		}
+		
+		public function set user_form(value:Cid_form):void 
+		{
+			$user_form = value;
+		}
+	}
+}
